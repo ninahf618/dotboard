@@ -1,16 +1,30 @@
-# dotboard
+## 開発環境の準備
 
-チームのタスクを貼り出して進めるボード。
+- Node.js 20 以上
 
-## 開発環境
+```bash
+git clone <このリポジトリのURL>
+cd dotboard
+npm install
+```
 
-| 道具 | バージョン |
+## 起動
+
+```bash
+npm run dev
+```
+
+起動後、別のターミナルで動作確認する:
+
+```bash
+curl http://localhost:3000/health
+# => {"status":"ok"}
+```
+
+## その他のコマンド
+
+| コマンド | 説明 |
 | --- | --- |
-| Node.js | v24.19.0|
-| npm | 11.4.2  |
-| Git |  2.47.1.windows.2 |
-| Docker | 28.2.2 |
-
-## 起動方法
-
-未実装（Step 1 で書く）
+| `npm run dev` | 開発サーバを起動（ファイル保存で自動再起動） |
+| `npm run build` | `dist/` に JavaScript を出力 |
+| `npm run typecheck` | 型チェックのみ実行 |

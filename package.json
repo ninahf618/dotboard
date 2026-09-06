@@ -1,0 +1,31 @@
+{
+  "name": "dotboard",
+  "version": "1.0.0",
+  "description": "チームのタスクを貼り出して進めるボード。",
+  "homepage": "https://github.com/ninahf618/dotboard#readme",
+  "bugs": {
+    "url": "https://github.com/ninahf618/dotboard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninahf618/dotboard.git"
+  },
+  "license": "ISC",
+  "author": "ninah",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "tsx watch src/index.ts", 
+    "build": "tsc", 
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.1",
+    "hono": "^4.13.5"
+  }
+}
