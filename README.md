@@ -23,8 +23,8 @@ curl http://localhost:3000/health
 
 ## その他のコマンド
 
-| コマンド | 説明 |
-| --- | --- |
-| `npm run dev` | 開発サーバを起動（ファイル保存で自動再起動） |
-| `npm run build` | `dist/` に JavaScript を出力 |
-| `npm run typecheck` | 型チェックのみ実行 |
+| コマンド            | 説明                                         |
+| ------------------- | -------------------------------------------- |
+| `npm run dev`       | 開発サーバを起動（ファイル保存で自動再起動） |
+| `npm run build`     | `dist/` に JavaScript を出力                 |
+| `npm run typecheck` | 型チェックのみ実行                           |
