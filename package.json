@@ -15,8 +15,8 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts", 
-    "build": "tsc", 
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
-    "hono": "^4.13.5"
+    "hono": "^4.13.5",
+    "zod": "^4.5.4"
   }
 }
