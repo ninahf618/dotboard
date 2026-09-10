@@ -1,5 +1,4 @@
-import type { Item } from './types.js'
-import type { Status } from './types.js'
+import type { Item, Status } from './types.js'
 
 const allowedTransitions: Record<Status, Status[]> = {
   open: ['doing'],
