@@ -1,11 +1,13 @@
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
+import { cors } from 'hono/cors'
 import { items, generateId, canTransition, nextStatuses } from './store.js'
 import { createItemSchema, updateItemSchema } from './schema.js'
 import { notFoundError, badRequestError } from './errors.js'
 import type { Item } from './types.js'
 
 const app = new Hono()
+app.use('*', cors())
 
 // APIに出す形に詰め替える。次に行ける状態は遷移の表から引いて付ける
 const toItem = (item: Item) => ({ ...item, allowedTransitions: nextStatuses(item.status) })
