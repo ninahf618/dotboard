@@ -6,3 +6,5 @@ export const createItemSchema = z.object({
   rating: z.number().int().min(1).max(5),
   status: z.enum(['open', 'doing', 'done']),
 })
+
+export const updateItemSchema = createItemSchema.partial()
