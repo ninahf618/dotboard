@@ -1,0 +1,38 @@
+body {
+  font-family: sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.item-title {
+  font-weight: bold;
+  margin: 0 0 4px;
+}
+
+.item-note {
+  color: #555;
+  margin: 0 0 4px;
+}
+
+.item-rating {
+  color: #e0a500;
+  margin: 0;
+}
+
+.create-form label {
+  display: block;
+  margin-bottom: 8px;
+}
