@@ -6,7 +6,8 @@ import { badRequestError } from "../errors.js";
 export const itemsRoute = new Hono();
 
 itemsRoute.get("/", async (c) => {
-  const items = await itemService.list();
+  const tag = c.req.query("tag");
+  const items = await itemService.list(tag);
   return c.json(items);
 });
 
