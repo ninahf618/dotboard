@@ -29,7 +29,7 @@ function toItem(item: ItemWithTags) {
 export const itemService = {
   async list(tag?: string) {
     const items = await itemRepository.findMany();
-    return itemRepository.findMany();
+    return items.map(toItem);
   },
 
   async get(id: number) {
