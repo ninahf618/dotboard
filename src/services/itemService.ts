@@ -28,7 +28,7 @@ function toItem(item: ItemWithTags) {
 
 export const itemService = {
   async list(tag?: string) {
-    const items = await itemRepository.findMany();
+    const items = await itemRepository.findMany(tag);
     return items.map(toItem);
   },
 
