@@ -3,7 +3,7 @@ import { NotFoundError, TransitionError } from "../errors.js";
 import type { Status } from "../types.js";
 import type { Item, Prisma } from "../generated/prisma/client.js";
 
-const allowedTransitions: Record<Status, Status[]> = {
+const statusTransitions: Record<Status, Status[]> = {
   open: ["doing"],
   doing: ["open", "done"],
   done: ["doing"],
@@ -11,11 +11,11 @@ const allowedTransitions: Record<Status, Status[]> = {
 
 function canTransition(from: Status, to: Status): boolean {
   if (from === to) return true;
-  return allowedTransitions[from].includes(to);
+  return statusTransitions[from].includes(to);
 }
 
 function nextStatuses(status: Status): Status[] {
-  return allowedTransitions[status];
+  return statusTransitions[status];
 }
 
 // APIに出す形に詰め替える。次に行ける状態は遷移の表から引いて付ける
