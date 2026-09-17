@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
+import type { SubmitEvent } from "react";
 import type { NewItem } from "../api/items";
 
 type Props = {
@@ -12,7 +12,7 @@ export function ItemForm({ onCreate }: Props) {
   const [rating, setRating] = useState(3);
   const [tagsInput, setTagsInput] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (title.trim() === "") return;
 

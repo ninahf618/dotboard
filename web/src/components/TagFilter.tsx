@@ -27,7 +27,7 @@ export function TagFilter({ tags, activeTag, onSelect }: Props) {
           onClick={() => onSelect(tag)}
           className={activeTag === tag ? ACTIVE : INACTIVE}
         >
-          ラベル
+          {tag}
         </button>
       ))}
     </div>
