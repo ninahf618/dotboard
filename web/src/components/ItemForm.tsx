@@ -32,28 +32,44 @@ export function ItemForm({ onCreate }: Props) {
       onSubmit={handleSubmit}
       className="flex flex-wrap items-center gap-2 mb-6"
     >
+      <label className="text-sm text-gray-700" htmlFor="title">
+        タイトル
+      </label>
       <input
+        id="title"
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="タイトル"
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
       />
+      <label className="text-sm text-gray-700" htmlFor="note">
+        メモ
+      </label>
+
       <input
+        id="note"
         type="text"
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="メモ"
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
       />
+      <label className="text-sm text-gray-700" htmlFor="tags">
+        ラベル（カンマ区切り）
+      </label>
+
       <input
+        id="tags"
         type="text"
         value={tagsInput}
         onChange={(e) => setTagsInput(e.target.value)}
-        placeholder="ラベル（カンマ区切り）"
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
       />
+      <label className="text-sm text-gray-700" htmlFor="rating">
+        評価
+      </label>
+
       <select
+        id="rating"
         value={rating}
         onChange={(e) => setRating(Number(e.target.value))}
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
