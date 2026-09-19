@@ -1,7 +1,10 @@
-import { itemRepository } from "../repositories/itemRepository.js";
+import {
+  itemRepository,
+  type ItemWithTags,
+} from "../repositories/itemRepository.js";
 import { NotFoundError, TransitionError } from "../errors.js";
 import type { Status } from "../types.js";
-import type { Item, Prisma } from "../generated/prisma/client.js";
+import type { Prisma } from "../generated/prisma/client.js";
 
 const statusTransitions: Record<Status, Status[]> = {
   open: ["doing"],
@@ -19,14 +22,14 @@ function nextStatuses(status: Status): Status[] {
 }
 
 // APIに出す形に詰め替える。次に行ける状態は遷移の表から引いて付ける
-function toItem(item: Item) {
+function toItem(item: ItemWithTags) {
   return { ...item, allowedTransitions: nextStatuses(item.status as Status) };
 }
 
 export const itemService = {
-  async list() {
+  async list(tag?: string) {
     const items = await itemRepository.findMany();
-    return items.map(toItem);
+    return itemRepository.findMany();
   },
 
   async get(id: number) {
@@ -35,11 +38,14 @@ export const itemService = {
     return toItem(item);
   },
 
-  async create(data: Prisma.ItemCreateInput) {
+  async create(data: Prisma.ItemUncheckedCreateInput & { tags?: string[] }) {
     return toItem(await itemRepository.create(data));
   },
 
-  async update(id: number, data: Prisma.ItemUpdateInput & { status?: Status }) {
+  async update(
+    id: number,
+    data: Prisma.ItemUpdateInput & { tags?: string[]; status?: Status },
+  ) {
     const current = await itemRepository.findById(id);
     if (!current) throw new NotFoundError(`Item ${id} not found`);
 
