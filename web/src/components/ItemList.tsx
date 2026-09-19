@@ -32,6 +32,16 @@ export function ItemList({ items, onChangeStatus, onDelete }: Props) {
           <p className="text-amber-500">{renderStars(item.rating)}</p>
           <p className="text-gray-600">{item.note}</p>
           <p>{STATUS_LABEL[item.status]}</p>
+          <div className="flex flex-wrap gap-1 mb-1">
+            {item.tags.map((tag) => (
+              <span
+                key={tag.id}
+                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700"
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
           <div className="flex flex-wrap gap-2 mt-2">
             {item.allowedTransitions.map((next) => (
               <button
