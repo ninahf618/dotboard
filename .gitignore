@@ -13,7 +13,6 @@ dist/
 
 /src/generated/prisma
 
-/src/generated/prisma
 
 # Vercel CLI がローカルに作る紐付け情報
 .vercel/
