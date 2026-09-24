@@ -12,3 +12,8 @@ dist/
 .DS_Store
 
 /src/generated/prisma
+
+
+# Vercel CLI がローカルに作る紐付け情報
+.vercel/
+.vercel
