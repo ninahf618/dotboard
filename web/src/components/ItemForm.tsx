@@ -54,7 +54,7 @@ export function ItemForm({ onCreate }: Props) {
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
       />
       <label className="text-sm text-gray-700" htmlFor="tags">
-        ラベル（カンマ区切り）
+        ジャンル（カンマ区切り）
       </label>
 
       <input

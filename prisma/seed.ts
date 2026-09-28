@@ -10,16 +10,16 @@ async function main() {
   await prisma.item.createMany({
     data: [
       {
-        title: "設計docを書く",
-        note: "docs/api.md にエンドポイント一覧をまとめる",
+        title: "千と千尋の神隠し",
+        note: "週末に家族と観る",
         rating: 3,
         status: "open",
       },
-      { title: "CORSを解決する", note: "", rating: 4, status: "doing" },
+      { title: "ブレイキング・バッド", note: "", rating: 4, status: "doing" },
       {
-        title: "READMEを書く",
-        note: "起動手順を書く",
-        rating: 2,
+        title: "パラサイト 半地下の家族",
+        note: "後半の展開が予想外だった",
+        rating: 5,
         status: "done",
       },
     ],
