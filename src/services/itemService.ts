@@ -8,7 +8,7 @@ import type { ListItemsQuery } from "../schema.js";
 import type { Prisma } from "../generated/prisma/client.js";
 
 const allowedTransitions: Record<Status, Status[]> = {
-  open: ["doing", "done"],
+  open: ["doing"],
   doing: ["open", "done"],
   done: ["doing"],
 };
