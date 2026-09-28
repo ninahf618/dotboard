@@ -4,6 +4,7 @@ import {
 } from "../repositories/itemRepository.js";
 import { NotFoundError, TransitionError } from "../errors.js";
 import type { Status } from "../types.js";
+import type { ListItemsQuery } from "../schema.js";
 import type { Prisma } from "../generated/prisma/client.js";
 
 const allowedTransitions: Record<Status, Status[]> = {
@@ -27,9 +28,12 @@ function toItem(item: ItemWithTags) {
 }
 
 export const itemService = {
-  async list(tag?: string) {
-    const items = await itemRepository.findMany(tag);
-    return items.map(toItem);
+  async list(params?: {
+    tag?: string;
+    status?: Status;
+    sort?: "id" | "rating";
+  }) {
+    return itemRepository.findMany(params);
   },
 
   async get(id: number) {

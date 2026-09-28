@@ -1,13 +1,20 @@
 import { Hono } from "hono";
-import { createItemSchema, updateItemSchema } from "../schema.js";
+import {
+  createItemSchema,
+  listItemsQuerySchema,
+  updateItemSchema,
+} from "../schema.js";
 import { itemService } from "../services/itemService.js";
 import { badRequestError } from "../errors.js";
 
 export const itemsRoute = new Hono();
 
 itemsRoute.get("/", async (c) => {
-  const tag = c.req.query("tag");
-  const items = await itemService.list(tag);
+  const result = listItemsQuerySchema.safeParse(c.req.query());
+  if (!result.success) {
+    return badRequestError(c, result.error.issues);
+  }
+  const items = await itemService.list(result.data);
   return c.json(items);
 });
 

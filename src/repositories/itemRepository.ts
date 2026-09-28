@@ -1,5 +1,6 @@
 import { prisma } from "../db.js";
 import type { Item, Prisma, Tag } from "../generated/prisma/client.js";
+import type { Status } from "../types.js";
 
 export type ItemWithTags = Item & { tags: Tag[] };
 
@@ -14,10 +15,18 @@ function toTagConnect(tags: string[] | undefined) {
 }
 
 export const itemRepository = {
-  findMany(tag?: string): Promise<ItemWithTags[]> {
+  findMany(params?: {
+    tag?: string;
+    status?: Status;
+    sort?: "id" | "rating";
+  }): Promise<ItemWithTags[]> {
+    const { tag, status, sort } = params ?? {};
     return prisma.item.findMany({
-      where: tag ? { tags: { some: { name: tag } } } : undefined,
-      orderBy: { id: "asc" },
+      where: {
+        ...(tag ? { tags: { some: { name: tag } } } : {}),
+        ...(status ? { status } : {}),
+      },
+      orderBy: sort === "rating" ? { rating: "desc" } : { id: "asc" },
       include: { tags: true },
     });
   },
