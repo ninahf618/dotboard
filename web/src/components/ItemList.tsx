@@ -22,11 +22,11 @@ export function ItemList({ items, onChangeStatus, onDelete }: Props) {
   }
 
   return (
-    <ul>
+    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       {items.map((item) => (
         <li
           key={item.id}
-          className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm mb-2"
+          className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
         >
           <p className="font-bold mb-1">{item.title}</p>
           <p className="text-amber-500">{renderStars(item.rating)}</p>
