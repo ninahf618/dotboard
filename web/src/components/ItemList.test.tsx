@@ -6,7 +6,7 @@ import type { Item } from "../api/items";
 const items: Item[] = [
   {
     id: 1,
-    title: "テスト用のアイテム 5",
+    title: "テスト用のアイテム",
     note: "",
     rating: 3,
     status: "open",
