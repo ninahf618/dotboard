@@ -20,7 +20,10 @@ function canTransition(from: Status, to: Status): boolean {
 
 // APIに出す形に詰め替える。次に行ける状態は遷移の表から引いて付ける
 function toItem(item: ItemWithTags) {
-  return { ...item, allowedTransitions: allowedTransitions[item.status as Status] };
+  return {
+    ...item,
+    allowedTransitions: allowedTransitions[item.status as Status],
+  };
 }
 
 export const itemService = {
