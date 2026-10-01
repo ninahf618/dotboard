@@ -56,19 +56,6 @@ export const itemRepository = {
       include: { tags: true },
     });
   },
-  async replaceTags(itemId: number, tagIds: number[]): Promise<void> {
-    await prisma.$transaction([
-      prisma.item.update({
-        where: { id: itemId },
-        data: { tags: { set: [] } },
-      }),
-      prisma.item.update({
-        where: { id: itemId },
-        data: { tags: { connect: tagIds.map((id) => ({ id })) } },
-      }),
-    ]);
-  },
-
   delete(id: number): Promise<Item> {
     return prisma.item.delete({ where: { id } });
   },
