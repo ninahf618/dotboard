@@ -7,9 +7,9 @@ type Props = {
 };
 
 const STATUS_LABEL: Record<Status, string> = {
-  open: "未着手",
-  doing: "作業中",
-  done: "完了",
+  open: "未視聴",
+  doing: "視聴中",
+  done: "視聴済み",
 };
 
 function renderStars(rating: number): string {
@@ -18,7 +18,7 @@ function renderStars(rating: number): string {
 
 export function ItemList({ items, onChangeStatus, onDelete }: Props) {
   if (items.length === 0) {
-    return <p>タスクはまだありません。</p>;
+    return <p>タイトルはまだありません。</p>;
   }
 
   return (

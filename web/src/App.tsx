@@ -69,7 +69,7 @@ function App() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight mb-4">タスクボード</h1>
+      <h1 className="text-2xl font-bold tracking-tight mb-4">ウォッチログ</h1>
       {error && <p>失敗しました: {error}</p>}
       <ItemForm onCreate={handleCreate} />
       <TagFilter
