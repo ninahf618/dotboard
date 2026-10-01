@@ -9,3 +9,11 @@ export const createItemSchema = z.object({
 });
 
 export const updateItemSchema = createItemSchema.partial();
+
+export const listItemsQuerySchema = z.object({
+  tag: z.string().min(1).optional(),
+  status: z.enum(["open", "doing", "done"]).optional(),
+  sort: z.enum(["id", "rating"]).default("id"),
+});
+
+export type ListItemsQuery = z.infer<typeof listItemsQuerySchema>;
