@@ -32,7 +32,8 @@ export const itemService = {
     status?: Status;
     sort?: "id" | "rating";
   }) {
-    return itemRepository.findMany(params);
+    const items = await itemRepository.findMany(params);
+    return items.map(toItem);
   },
 
   async get(id: number) {
