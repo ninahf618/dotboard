@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { Item, Status } from "../api/items";
+import { CommentSection } from "./CommentSection";
 
 type Props = {
   items: Item[];
@@ -17,18 +19,30 @@ function renderStars(rating: number): string {
 }
 
 export function ItemList({ items, onChangeStatus, onDelete }: Props) {
+  // コメントを開いているアイテム。一覧が混雑しないよう、開くのは一度に1件だけにする
+  const [openItemId, setOpenItemId] = useState<number | null>(null);
+
   if (items.length === 0) {
     return <p>タイトルはまだありません。</p>;
   }
 
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
       {items.map((item) => (
         <li
           key={item.id}
           className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
         >
-          <p className="font-bold mb-1">{item.title}</p>
+          <button
+            type="button"
+            onClick={() =>
+              setOpenItemId((prev) => (prev === item.id ? null : item.id))
+            }
+            aria-expanded={openItemId === item.id}
+            className="font-bold mb-1 text-left hover:underline"
+          >
+            {item.title}
+          </button>
           <p className="text-amber-500">{renderStars(item.rating)}</p>
           <p className="text-gray-600">{item.note}</p>
           <p>{STATUS_LABEL[item.status]}</p>
@@ -61,6 +75,7 @@ export function ItemList({ items, onChangeStatus, onDelete }: Props) {
               削除
             </button>
           </div>
+          {openItemId === item.id && <CommentSection itemId={item.id} />}
         </li>
       ))}
     </ul>

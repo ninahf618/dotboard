@@ -17,6 +17,23 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
+describe("itemService.list", () => {
+  it("各アイテムにallowedTransitionsを付けて返す", async () => {
+    const found = [
+      { id: 1, title: "a", note: "", rating: 3, status: "open", tags: [] },
+      { id: 2, title: "b", note: "", rating: 4, status: "done", tags: [] },
+    ];
+    vi.mocked(itemRepository.findMany).mockResolvedValue(found as never);
+
+    const result = await itemService.list();
+
+    expect(result).toEqual([
+      { ...found[0], allowedTransitions: ["doing"] },
+      { ...found[1], allowedTransitions: ["doing"] },
+    ]);
+  });
+});
+
 describe("itemService.create", () => {
   it("repositoryのcreateにそのままdataを渡す", async () => {
     const created = {

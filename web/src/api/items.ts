@@ -20,7 +20,7 @@ export type NewItem = {
   tags: string[];
 };
 
-async function handleResponse<T>(res: Response): Promise<T> {
+export async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     throw new Error(`リクエストに失敗しました (status: ${res.status})`);
   }

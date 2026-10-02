@@ -13,16 +13,26 @@ datasource db {
 }
 
 model Item {
-  id     Int    @id @default(autoincrement())
-  title  String
-  note   String?
-  rating Int
-  status String @default("open")
-  tags   Tag[]
+  id       Int       @id @default(autoincrement())
+  title    String
+  note     String?
+  rating   Int
+  status   String    @default("open")
+  tags     Tag[]
+  comments Comment[]
 }
 
 model Tag {
   id    Int    @id @default(autoincrement())
   name  String @unique
   items Item[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  itemId  Int
+  author  String
+  content String
+  // アイテムを消したらコメントも一緒に消す（残すと削除が外部キー違反で失敗するため）
+  item    Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }

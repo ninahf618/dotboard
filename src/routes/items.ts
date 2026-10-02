@@ -3,10 +3,13 @@ import { zValidator } from "@hono/zod-validator";
 import type { ValidationTargets } from "hono";
 import type { ZodType } from "zod";
 import {
+  commentParamSchema,
+  createCommentSchema,
   createItemSchema,
   listItemsQuerySchema,
   updateItemSchema,
 } from "../schema.js";
+import { commentService } from "../services/commentService.js";
 import { itemService } from "../services/itemService.js";
 import { badRequestError } from "../errors.js";
 
@@ -50,3 +53,24 @@ itemsRoute.delete("/:id", async (c) => {
   await itemService.remove(id);
   return c.body(null, 204);
 });
+
+itemsRoute.get(
+  "/:itemId/comments",
+  validate("param", commentParamSchema),
+  async (c) => {
+    const { itemId } = c.req.valid("param");
+    const comments = await commentService.list(itemId);
+    return c.json(comments);
+  },
+);
+
+itemsRoute.post(
+  "/:itemId/comments",
+  validate("param", commentParamSchema),
+  validate("json", createCommentSchema),
+  async (c) => {
+    const { itemId } = c.req.valid("param");
+    const comment = await commentService.create(itemId, c.req.valid("json"));
+    return c.json(comment, 201);
+  },
+);
