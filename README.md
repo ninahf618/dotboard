@@ -63,5 +63,7 @@ web/src/App.tsx → 状態（state）の置き場所とつなぎ役。services �
 | Preview            | feature ブランチ | PR の作成・更新（PR ごとに使い捨ての URL が作られる）   |
 
 - デプロイは Vercel の Git 連携で行う。`vercel --prod` は手で打たない。
+- 本番のデプロイ時に、ビルドの前で `prisma migrate deploy` が走り、未適用のマイグレーションを本番の DB に適用する（`vercel.json` の `buildCommand`）。適用に失敗するとデプロイも失敗し、前のバージョンが残る。
+- Preview のビルドではマイグレーションを適用しない。Vercel の `DATABASE_URL` は Production にしか設定していないため。
 - `.github/workflows/ci.yml` が push と PR のたびに、サーバ側の型チェック・テストと、`web` の lint・テスト・ビルドを実行する。
 - Preview 環境は本番と同じ `DATABASE_URL` を使う。Preview で作ったデータは本番の DB に入る。
