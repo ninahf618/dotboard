@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "npm install && npm install --prefix web",
-  "buildCommand": "npm run build --prefix web",
+  "buildCommand": "if [ \"$VERCEL_ENV\" = \"production\" ]; then npx prisma migrate deploy; fi && npm run build --prefix web",
   "outputDirectory": "web/dist",
   "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
 }
