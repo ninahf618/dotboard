@@ -12,6 +12,8 @@ import {
 import { commentService } from "../services/commentService.js";
 import { itemService } from "../services/itemService.js";
 import { badRequestError } from "../errors.js";
+import { streamSSE } from "hono/streaming";
+import { itemEvents } from "../events.js";
 
 // 失敗時のレスポンスを { error, issues } の形にそろえるため、hookで badRequestError を返す
 const validate = <T extends keyof ValidationTargets, S extends ZodType>(
@@ -29,6 +31,27 @@ export const itemsRoute = new Hono();
 itemsRoute.get("/", validate("query", listItemsQuerySchema), async (c) => {
   const items = await itemService.list(c.req.valid("query"));
   return c.json(items);
+});
+
+itemsRoute.get("/stream", async (c) => {
+  return streamSSE(c, async (stream) => {
+    let changed = true; // 接続直後に一度だけ最新状態を伝える
+    const onChanged = () => {
+      changed = true;
+    };
+    itemEvents.on("changed", onChanged);
+    while (!stream.aborted) {
+      if (changed) {
+        changed = false;
+        await stream.writeSSE({
+          event: "changed",
+          data: new Date().toISOString(),
+        });
+      }
+      await stream.sleep(500);
+    }
+    itemEvents.off("changed", onChanged);
+  });
 });
 
 itemsRoute.get("/:id", async (c) => {

@@ -6,6 +6,7 @@ import { NotFoundError, TransitionError } from "../errors.js";
 import type { Status } from "../types.js";
 import type { ListItemsQuery } from "../schema.js";
 import type { Prisma } from "../generated/prisma/client.js";
+import { itemEvents } from "../events.js";
 
 const allowedTransitions: Record<Status, Status[]> = {
   open: ["doing"],
@@ -43,7 +44,9 @@ export const itemService = {
   },
 
   async create(data: Prisma.ItemUncheckedCreateInput & { tags?: string[] }) {
-    return toItem(await itemRepository.create(data));
+    const item = await itemRepository.create(data);
+    itemEvents.emit("changed");
+    return toItem(item);
   },
 
   async update(
@@ -61,8 +64,9 @@ export const itemService = {
         },
       ]);
     }
-
-    return toItem(await itemRepository.update(id, data));
+    const item = await itemRepository.update(id, data);
+    itemEvents.emit("changed");
+    return toItem(item);
   },
 
   async remove(id: number) {

@@ -67,3 +67,13 @@ web/src/App.tsx → 状態（state）の置き場所とつなぎ役。services �
 - Preview のビルドではマイグレーションを適用しない。Vercel の `DATABASE_URL` は Production にしか設定していないため。
 - `.github/workflows/ci.yml` が push と PR のたびに、サーバ側の型チェック・テストと、`web` の lint・テスト・ビルドを実行する。
 - Preview 環境は本番と同じ `DATABASE_URL` を使う。Preview で作ったデータは本番の DB に入る。
+
+## リアルタイム更新について
+
+本番ではポーリング（5秒間隔）で自動更新しています。ローカルではSSE実装も動作確認済みです（`src/routes/items.ts` の `/stream`、`web/src/api/items.ts` の `openItemsStream`）。
+
+本番でSSEを採用しなかった理由:
+
+- Vercel Functionsは1回の実行時間に上限があり、SSEの接続は上限に達すると強制的に切られる
+- 接続を張りっぱなしにする方式は、同時に開いている人数ぶんだけ実行中の関数が積み上がる
+- 再接続設計・同時接続数の見積もりまで含めると、このアプリの規模に対してポーリングより複雑さが見合わない

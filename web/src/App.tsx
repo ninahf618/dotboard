@@ -24,6 +24,17 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      fetchItems(activeTag)
+        .then(setItems)
+        .catch((e: unknown) =>
+          setError(e instanceof Error ? e.message : "更新に失敗しました"),
+        );
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeTag]);
+
   function handleSelectTag(tag: string | undefined) {
     setLoading(true);
     setActiveTag(tag);
